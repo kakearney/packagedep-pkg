@@ -76,15 +76,15 @@ function varargout = rendergraph(renderer, outfile, varargin)
 
 [outpath, outfiletemp, outext] = fileparts(outfile);
 
-ext = {'.txt', '.png', '.ps', '.bmp'};
-format = {'plain', 'png', 'ps2', 'bmp'};
+ext = {'.txt', '.png', '.ps', '.bmp', '.svg'};
+format = {'plain', 'png', 'ps2', 'bmp', 'svg'};
 
 isfmt = strcmp(ext, outext);
 
 if any(isfmt)
     outformat = format{isfmt};
 else
-    error('Output file must be .txt, .png, .ps, or .bmp');
+    error('Output file must be .txt, .png, .ps, .svg, or .bmp');
 end
 
 % Renderer

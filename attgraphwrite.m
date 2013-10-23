@@ -155,15 +155,27 @@ function str = subgraph2str(Subgraph)
 attrib = fieldnames(Subgraph);
 val = struct2cell(Subgraph);
 
-default = cellfun(@isempty, val);
-notattrib = strcmpi(attrib, 'nodes');
+[isspecial, loc] = ismember(attrib, {'nodes', 'name'});
+default = cellfun('isempty', val);
 
-attrib = attrib(~default & ~notattrib);
-val = val(~default & ~notattrib);
+% notattrib = strcmpi(attrib, 'nodes');
+
+attrib = attrib(~default & ~isspecial);
+val = val(~default & ~isspecial);
 
 attributes = graphpropstr(attrib, val);
 subnodestr = sprintf(';%s', Subgraph.nodes{:});
-str = sprintf('{%s%s}', attributes, subnodestr);
+
+if isempty(attrib)
+    subnodestr = subnodestr(2:end);
+end
+
+if isspecial(2)
+    str = sprintf('subgraph %s {%s%s}', Subgraph.name, attributes, subnodestr);
+else
+    str = sprintf('{%s%s}', attributes, subnodestr);
+end
+
 
 %--------------------------
 % Create general attribute 
