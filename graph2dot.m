@@ -27,6 +27,8 @@ function A = graph2dot(adj, xy, prefix, Nodeprop, Edgeprop)
 %               cell array of the properties to be applied to each edge,
 %               respectively. nedge = length(find(adj))
 
+% Copyright 2013 Kelly Kearney
+
 
 % i = source, j = sink
 % xy in points

@@ -19,7 +19,7 @@ function varargout = rendergraph(renderer, outfile, varargin)
 %
 %   outfile:    name of output file.  The extension will determine the
 %               output format: txt = Graphviz simple text, png = png, ps =
-%               postscript for pdf, bmp = bmp
+%               postscript for pdf, bmp = bmp, svg = svg
 %
 %   infile:     name of dot input file to be rendered
 %
