@@ -164,13 +164,14 @@ attrib = attrib(~default & ~isspecial);
 val = val(~default & ~isspecial);
 
 attributes = graphpropstr(attrib, val);
+ 
 subnodestr = sprintf(';%s', Subgraph.nodes{:});
 
 if isempty(attrib)
     subnodestr = subnodestr(2:end);
 end
 
-if isspecial(2)
+if any(loc == 2)
     str = sprintf('subgraph %s {%s%s}', Subgraph.name, attributes, subnodestr);
 else
     str = sprintf('{%s%s}', attributes, subnodestr);
