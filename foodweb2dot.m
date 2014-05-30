@@ -31,13 +31,18 @@ function Fw = foodweb2dot(varargin);
 %               size is set at 14 pt, but depending on the size of the full
 %               graph may need to increased to be legible.
 %
-%   xdistmax:   Maximum horizontal distance between any two nodes, in
+%   xbuffer:    Maximum horizontal distance between any two nodes, in
 %               inches, assuming that all nodes were placed at the same
 %               vertical level. This option can be used to reduce total
 %               graph size, which is sometimes excessively wide due to
 %               dot's method of positioning nodes to reduce overlap.
 %               Setting this to NaN (the default) uses the original
 %               dot-calculated positions.
+%
+%   ybuffer:    Maximum distance between any two nodes vertically; this is
+%               used to limit the compression in the x-direction (assuming
+%               xbuffer is assigned) so two nodes do not end up stacked too
+%               closely on top of each other.
 %
 % Output variables:
 %
@@ -67,11 +72,11 @@ function Fw = foodweb2dot(varargin);
 %-----------------------------
 
 if isstruct(varargin{1}) && all(isfield(varargin{1}, {'name', 'dc', 'pp', 'nlive'}))
-    A = varargin{1};
-    names = A.name;
-    dietcomp = A.dc;
-    ispp = A.pp == 1;
-    nlive = A.nlive;
+    B = varargin{1};
+    names = B.name;
+    dietcomp = B.dc;
+    ispp = B.pp == 1;
+    nlive = B.nlive;
     pv = varargin(2:end);
 else
     [names, dietcomp, ispp, nlive] = deal(varargin{1:4});
@@ -106,7 +111,8 @@ end
 
 Options.trophicint = 1;
 Options.scale = 1;
-Options.xdistmax = NaN;
+Options.xbuffer = NaN;
+Options.ybuffer = NaN;
 
 Options = parse_pv_pairs(Options, pv);
 
@@ -198,8 +204,8 @@ C.Node = adjustnodeypos(C.Node, tl);
 
 % Adjust x positions to eliminate extra space
 
-if ~isnan(Options.xdistmax)
-    C.Node = compressnodexpos(C.Node, Options.xdistmax*72);
+if ~isnan(Options.xbuffer)
+    C.Node = compressnodexpos(C.Node, Options.xbuffer*72, Options.ybuffer*72);
 end
 
 %-----------------------------
