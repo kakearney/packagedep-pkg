@@ -125,7 +125,7 @@ if plotflag
     plotboxes([xpos2(~isax) ypos2(~isax)], width, height, 'r');
     text(xpos(~isax), ypos(~isax), cellstr(num2str((1:size(adj,1))')), 'fontsize', 8);
     axis tight equal;
-%     xyrefline([], ypos(isax), 'linestyle', ':');
+%     gridxy([], ypos(isax), 'linestyle', ':');
 end 
 
 xy = [xpos2(~isax) ypos2(~isax)];

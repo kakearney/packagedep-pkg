@@ -83,7 +83,7 @@ if plotflag
     hold on;
     text(pos(:,1), pos(:,2), cellstr(num2str((1:nnode)')), 'horiz', 'center', 'color', 'b');
     axis equal;
-    xyrefline(xcent);
+    gridxy(xcent);
 end
 
 tbuf = t + vbuf;
